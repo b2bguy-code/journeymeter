@@ -1,0 +1,126 @@
+# README picture: from an API spec to a measured, production-ready JMeter test.
+
+vars: {
+  d2-config: {
+    theme-id: 0
+    pad: 24
+  }
+}
+
+classes: {
+  stage: {
+    grid-columns: 1
+    vertical-gap: 28
+    style: {
+      border-radius: 16
+      fill: "#ffffff"
+      stroke: "#c7d2fe"
+      stroke-width: 2
+      font-size: 24
+      bold: true
+    }
+  }
+  step: {
+    width: 270
+    style: {
+      border-radius: 10
+      font-size: 20
+      stroke-width: 2
+      fill: "#eef2ff"
+      stroke: "#4f46e5"
+      font-color: "#1e1b4b"
+    }
+  }
+  phase: {
+    width: 270
+    style: {
+      border-radius: 8
+      font-size: 20
+      fill: "#f8fafc"
+      stroke: "#94a3b8"
+      font-color: "#334155"
+    }
+  }
+  out: {
+    width: 270
+    style: {
+      border-radius: 10
+      font-size: 20
+      stroke-width: 2
+      fill: "#ecfdf5"
+      stroke: "#059669"
+      font-color: "#064e3b"
+    }
+  }
+  link: {
+    style: {
+      stroke: "#4f46e5"
+      stroke-width: 3
+    }
+  }
+}
+
+title: |md
+  # From API spec to production-ready load test, in hours
+| {near: top-center}
+
+direction: right
+
+design: "1. Design" {
+  class: stage
+  spec: "Import your OpenAPI\nor Swagger spec" {
+    width: 270
+    shape: page
+    style: {
+      font-size: 20
+      fill: "#fff7ed"
+      stroke: "#ea580c"
+      stroke-width: 2
+      font-color: "#7c2d12"
+    }
+  }
+  journeys: "User journeys\nand scenario mix" {class: step}
+  signin: "Real sign-in\nEntra ID, OIDC, API login" {class: step}
+  load: "Load profile\nusers, ramp, duration" {class: step}
+}
+
+data: "2. Test data" {
+  class: stage
+  pack: "Data pack\nCSV templates + guide" {class: step}
+  team: "Your data team\nfills it in" {class: step}
+  check: "Every row validated\nand dealt to users" {class: step}
+}
+
+run: "3. Run" {
+  class: stage
+  ramp: "Ramp-up" {class: phase}
+  warm: "Warm-up" {class: phase}
+  steady: "Steady state\nthe only part measured" {
+    width: 270
+    style: {
+      border-radius: 8
+      font-size: 20
+      bold: true
+      fill: "#d1fae5"
+      stroke: "#059669"
+      stroke-width: 3
+      font-color: "#064e3b"
+    }
+  }
+  wind: "Wind-down" {class: phase}
+}
+
+get: "4. You get" {
+  class: stage
+  style.stroke: "#a7f3d0"
+  jmx: "Clean JMeter plan\nan engineer would sign off" {class: out}
+  ci: "CI bundle\nGitHub Actions, Jenkins" {class: out}
+  report: "Steady-state report\np95, throughput, errors" {class: out}
+}
+
+design -> data: {class: link}
+data -> run: {class: link}
+run -> get: {
+  class: link
+  style.stroke: "#059669"
+}
